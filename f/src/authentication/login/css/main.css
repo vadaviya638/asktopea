@@ -147,7 +147,15 @@ iframe {
   font-size: 14px;
   line-height: 1.5;
   color: #333333;
+  background-color: #c7e058;
+  padding: 3px 15px;
+  border-radius: 50px;
+  text-align: center;
+  display: inline-block;
   text-transform: uppercase;
+}
+.txt2:hover{
+  background-color: #f4f5f1;
 }
 
 .bg1 {background-color: #3b5998}

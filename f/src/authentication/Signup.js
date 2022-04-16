@@ -34,7 +34,7 @@ export const Signup = () => {
 			})
 		})
 		const data = await res.json()
-		if (data.status === 422 || !res) {
+		if (res.status === 422 || !data) {
 			window.alert("invalid registration")
 			console.log("invalid registration");
 		}
@@ -198,7 +198,7 @@ export const Signup = () => {
 									Alredy Registration
 								</span>
 
-								<Link to="/login" class="txt2">
+								<Link  to="/login" class="txt2">
 									Login
 								</Link>
 							</div>

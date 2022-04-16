@@ -1,10 +1,40 @@
 
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import AllQuestions from './AllQuestions'
 import './css/Main.css'
 
+
 const Question = () => {
+  const navigate=useNavigate()
+
+  const callQuestionPage = async ()=>{
+    try {
+      const res=await fetch('/question',{
+        // method:"POST",
+        headers:{
+          Accept:"appllication/json",
+          "Content-Type":"appllication/json"
+        },
+        credentials:"include"
+      })
+      const data=await res.json()
+      // console.log(data);
+
+      if(!res.status === 200){
+        const error=new Error(res.error)
+        throw error
+      }
+    } catch (error) {
+      console.log(error);
+      navigate('/login')
+    }
+  }
+  useEffect(()=>{
+    callQuestionPage()
+  },[])
+
+
   return (
     <div>
 
@@ -30,7 +60,7 @@ const Question = () => {
       <div className='main pl-3 pr-3'>
         <div className='main-container' >
           <div className='main-desc '>
-            <p>All question stat</p>
+            {/* <p>{questions && questions.length} Questions</p> */}
             <div className='main-filter'>
               <div className='main-tabs'>
                 <div className='main-tab'>

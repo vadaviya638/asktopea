@@ -1,20 +1,19 @@
 {
   "name": "my-choice-fronted",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vadaviya638/asktopea.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/vadaviya638/asktopea/issues"
   },
-  "homepage": "https://github.com/vadaviya638/asktopea#readme",
-  "description": ""
+  "homepage": "https://github.com/vadaviya638/asktopea#readme"
 }

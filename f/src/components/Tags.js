@@ -1,8 +1,39 @@
 
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 const Tags = () => {
+  
+  const navigate=useNavigate()
+
+  const callTagsPage = async ()=>{
+    try {
+      const res=await fetch('/tags',{
+        // method:"POST",
+        headers:{
+          Accept:"appllication/json",
+          "Content-Type":"appllication/json"
+        },
+        credentials:"include"
+      })
+      const data=await res.json()
+      console.log(data);
+
+      if(!res.status === 200){
+        const error=new Error(res.error)
+        throw error
+      }
+    } catch (error) {
+      console.log(error);
+      navigate('/login')
+    }
+  }
+  useEffect(()=>{
+    callTagsPage()
+  },[])
+
+
   return (
     <div>
 

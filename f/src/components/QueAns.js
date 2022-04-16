@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import './css/QueAns.css'
@@ -8,6 +8,34 @@ const QueAns = () => {
   
     const [show, setShow]=useState(false);
   
+    const navigate=useNavigate()
+
+  const callQueAnsPage = async ()=>{
+    try {
+      const res=await fetch('/tags',{
+        // method:"POST",
+        headers:{
+          Accept:"appllication/json",
+          "Content-Type":"appllication/json"
+        },
+        credentials:"include"
+      })
+      const data=await res.json()
+      console.log(data);
+
+      if(!res.status === 200){
+        const error=new Error(res.error)
+        throw error
+      }
+    } catch (error) {
+      console.log(error);
+      navigate('/login')
+    }
+  }
+  useEffect(()=>{
+    callQueAnsPage()
+  },[])
+
   return (
     <div>
       <div className="main pl-3 pr-3 pt-5 pb-5">
@@ -186,17 +214,12 @@ const QueAns = () => {
           }}
         />
       </div>
-      <button
-        
-        style={{
-          cursor: "pointer",
-          marginTop: "50px",
-          maxWidth: "fit-content",
-        }}
-      >
+    </div>
+      <div class="ma pl-3 pb-4 mt-2">
+      <button class="button-59 " role="button"     >
         Post your answer
       </button>
-    </div>
+      </div>
     </div>
         
   )

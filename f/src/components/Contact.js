@@ -1,8 +1,49 @@
 
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
+  const sendEamil =(e)=>{
+    e.preventDefault();
+
+    emailjs.sendForm('service_0ji7bxd', 'template_81mekpe',e.target, 'tWmt8VcjCMXpdm0Lv')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      })
+      e.target.reset()
+  }
+ 
+  const navigate=useNavigate()
+
+  const callContactPage = async ()=>{
+    try {
+      const res=await fetch('/contact',{
+        // method:"POST",
+        headers:{
+          Accept:"appllication/json",
+          "Content-Type":"appllication/json"
+        },
+        credentials:"include"
+      })
+      const data=await res.json()
+      // console.log(data);
+
+      if(!res.status === 200){
+        const error=new Error(res.error)
+        throw error
+      }
+    } catch (error) {
+      console.log(error);
+      navigate('/login')
+    }
+  }
+  useEffect(()=>{
+    callContactPage()
+  },[])
+
   return (
     <div>
 
@@ -27,35 +68,35 @@ const Contact = () => {
         <div class="row">
           <div class="col-md-6">
             <div class="contact-form">
-              <form id="contact" action="" method="post">
+              <form id="contact" action="" method="POST" onSubmit={sendEamil}>
                 <div class="row">
                   <div class="col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="name" type="text" id="name" placeholder="Your name" required=""/>
+                      <input name="name" type="text" id="name" placeholder="Your name" required/>
                     </fieldset>
                   </div>
                   <div class="col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="email" type="text" id="email" placeholder="Your email" required=""/>
+                      <input name="email" type="text" id="email" placeholder="Your email" required/>
                     </fieldset>
                   </div>
                   <div class="col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="subject" type="text" id="subject" placeholder="Subject"/>
+                      <input name="subject" type="text" id="subject" placeholder="Subject" required/>
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <textarea name="message" rows="6" id="message" placeholder="Your message" required=""></textarea>
+                      <textarea name="message" rows="6" id="message" placeholder="Your message" required></textarea>
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <button type="submit" id="form-submit" class="main-button">Send Message</button>
+                      <button type="submit" id="form-submit" class="main-button mb-3">Send Message</button>
                     </fieldset>
                   </div>
                 </div>
-              </form>
+              </form> 
           </div>
           </div>
           <div class="col-md-6">
@@ -69,13 +110,13 @@ const Contact = () => {
                 <div class="col-md-6 col-sm-12">
                   <ul>
                     <li><i class="fa fa-phone"></i> 010-020-0560</li>
-                    <li><i class="fa fa-support"></i> support@company.com</li>
+                    <li><i class="fa fa-globe"></i> www.asktopea.com</li>
                   </ul>
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <ul>
-                    <li><i class="fa fa-envelope"></i> contact@company.com</li>
-                    <li><i class="fa fa-globe"></i> www.company.com</li>
+                    <li><i class="fa fa-support"></i> support@asktopea</li>
+                    <li><i class="fa fa-envelope"></i> contact@asktopea</li>
                   </ul>
                 </div>
               </div>

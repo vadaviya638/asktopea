@@ -1,8 +1,37 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './css/AllQuestions.css'
 
 const AllQuestions = () => {
+
+  const navigate=useNavigate()
+
+  const callAllQuestionsPage = async ()=>{
+    try {
+      const res=await fetch('/tags',{
+        // method:"POST",
+        headers:{
+          Accept:"appllication/json",
+          "Content-Type":"appllication/json"
+        },
+        credentials:"include"
+      })
+      const data=await res.json()
+      // console.log(data);
+
+      if(!res.status === 200){
+        const error=new Error(res.error)
+        throw error
+      }
+    } catch (error) {
+      console.log(error);
+      navigate('/login')
+    }
+  }
+  useEffect(()=>{
+    callAllQuestionsPage()
+  },[])
+
   return (
     <div className="all-questions pl-3 pr-3">
     <div className="all-questions-container ">
